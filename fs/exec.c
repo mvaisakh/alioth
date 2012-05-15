@@ -1030,6 +1030,7 @@ static int exec_mmap(struct mm_struct *mm)
 	task_lock(tsk);
 
 	local_irq_disable();
+	preempt_disable_rt();
 	active_mm = tsk->active_mm;
 	tsk->active_mm = mm;
 	tsk->mm = mm;
@@ -1047,6 +1048,7 @@ static int exec_mmap(struct mm_struct *mm)
 		local_irq_enable();
 	tsk->mm->vmacache_seqnum = 0;
 	vmacache_flush(tsk);
+	preempt_enable_rt();
 	task_unlock(tsk);
 	if (old_mm) {
 		up_read(&old_mm->mmap_sem);
