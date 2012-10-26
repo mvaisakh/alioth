@@ -51,6 +51,9 @@ SCHED_FEAT(NONTASK_CAPACITY, true)
  * using the scheduler IPI. Reduces rq->lock contention/bounces.
  */
 SCHED_FEAT(TTWU_QUEUE, false)
+# ifdef CONFIG_PREEMPT_LAZY
+SCHED_FEAT(PREEMPT_LAZY, true)
+# endif
 
 /*
  * When doing wakeups, attempt to limit superfluous scans of the LLC domain.
