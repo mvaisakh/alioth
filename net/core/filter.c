@@ -2002,7 +2002,11 @@ static inline int __bpf_tx_skb(struct net_device *dev, struct sk_buff *skb)
 {
 	int ret;
 
+#ifdef CONFIG_PREEMPT_RT_FULL
+	if (unlikely(xmit_rec_read() > XMIT_RECURSION_LIMIT)) {
+#else
 	if (dev_xmit_recursion()) {
+#endif
 		net_crit_ratelimited("bpf: recursion limit reached on datapath, buggy bpf program?\n");
 		kfree_skb(skb);
 		return -ENETDOWN;
@@ -2011,10 +2015,15 @@ static inline int __bpf_tx_skb(struct net_device *dev, struct sk_buff *skb)
 	skb->dev = dev;
 	skb->tstamp = 0;
 
+#ifdef CONFIG_PREEMPT_RT_FULL
+	xmit_rec_inc();
+	ret = dev_queue_xmit(skb);
+	xmit_rec_dec();
+#else
 	dev_xmit_recursion_inc();
 	ret = dev_queue_xmit(skb);
 	dev_xmit_recursion_dec();
-
+#endif
 	return ret;
 }
 
