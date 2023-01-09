@@ -1233,7 +1233,7 @@ static int debug_wmi_log_size_show(struct seq_file *m, void *v)
 			((struct seq_file *)file->private_data)->private;\
 		struct wmi_log_buf_t *wmi_log = &wmi_handle->log_info.	\
 				wmi_##func_base##_buf_info;		\
-		char locbuf[50];					\
+		char locbuf[50] = {};					\
 									\
 		if ((!buf) || (count > 50))				\
 			return -EFAULT;					\
@@ -1289,7 +1289,7 @@ static ssize_t debug_wmi_enable_write(struct file *file, const char __user *buf,
 	wmi_unified_t wmi_handle =
 		((struct seq_file *)file->private_data)->private;
 	int k, ret;
-	char locbuf[50];
+	char locbuf[50] = {};
 
 	if ((!buf) || (count > 50))
 		return -EFAULT;
@@ -1461,7 +1461,7 @@ static void wmi_debugfs_remove(wmi_unified_t wmi_handle)
  */
 static QDF_STATUS wmi_debugfs_init(wmi_unified_t wmi_handle, uint32_t pdev_idx)
 {
-	char buf[32];
+	char buf[32] = {};
 
 	snprintf(buf, sizeof(buf), "WMI_SOC%u_PDEV%u",
 		 wmi_handle->soc->soc_idx, pdev_idx);
