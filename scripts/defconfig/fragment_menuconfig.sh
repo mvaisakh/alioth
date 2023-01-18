@@ -25,9 +25,6 @@ PLATFORM_NAME=`echo $PLATFORM_NAME | sed "s/vendor\///g"`
 # We should be in the kernel root after the envsetup
 source ${SCRIPTS_ROOT}/envsetup.sh $PLATFORM_NAME
 
-# Allyes fragment temporarily created on GKI config fragment
-QCOM_GKI_ALLYES_FRAG=${CONFIGS_DIR}/${PLATFORM_NAME}_ALLYES_GKI.config
-
 if [ ! -f "${QCOM_GKI_FRAG}" ]; then
 	echo "Error: Invalid input"
 	usage
@@ -43,8 +40,6 @@ case "$REQUIRED_DEFCONFIG" in
 		;&	# Intentional fallthrough
 	${PLATFORM_NAME}-qgki_defconfig )
 		FINAL_DEFCONFIG_BLEND+=" $QCOM_QGKI_FRAG"
-		${SCRIPTS_ROOT}/fragment_allyesconfig.sh $QCOM_GKI_FRAG $QCOM_GKI_ALLYES_FRAG
-		FINAL_DEFCONFIG_BLEND+=" $QCOM_GKI_ALLYES_FRAG "
 		;;
 	${PLATFORM_NAME}-gki_defconfig )
 		FINAL_DEFCONFIG_BLEND+=" $QCOM_GKI_FRAG "
@@ -100,6 +95,3 @@ diff -u .config_base .config | grep "^+# CONFIG_" | sed 's/^.//' >> ${FRAG_CONFI
 
 # Cleanup the config files generated during the process
 rm -f .config_base .config defconfig defconfig_base
-
-# Cleanup the allyes config fragment that was generated
-rm -f $QCOM_GKI_ALLYES_FRAG
