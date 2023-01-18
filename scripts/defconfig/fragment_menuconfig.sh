@@ -5,9 +5,8 @@
 # Script to edit the kconfig fragments through menuconfig
 
 usage() {
-	echo "Usage: $0 <platform_defconfig_variant>"
-	echo "Variants: <platform>-gki_defconfig, <platform>-qgki_defconfig, and <platform>-qgki-debug_defconfig"
-	echo "Example: $0 lahaina-gki_defconfig"
+	echo "Usage: $0 <board_name> <device_defconfig>"
+	echo "Example: $0 kona alioth_defconfig"
 	exit 1
 }
 
@@ -18,14 +17,14 @@ fi
 
 SCRIPTS_ROOT=$(readlink -f $(dirname $0)/)
 
-PLATFORM_NAME=`echo $1 | sed -r "s/(-gki_defconfig|-qgki_defconfig|-qgki-debug_defconfig)$//"`
+DEVICE_NAME=`echo $1 | sed -r "s/(_defconfig)$//"`
 
-PLATFORM_NAME=`echo $PLATFORM_NAME | sed "s/vendor\///g"`
+DEVICE_NAME=`echo $DEVICE_NAME | sed "s/vendor\///g"`
 
 # We should be in the kernel root after the envsetup
-source ${SCRIPTS_ROOT}/envsetup.sh $PLATFORM_NAME
+source ${SCRIPTS_ROOT}/envsetup.sh $BOARD_NAME $DEVICE_NAME
 
-if [ ! -f "${QCOM_GKI_FRAG}" ]; then
+if [ ! -f "${DEVICE_FRAG}" ]; then
 	echo "Error: Invalid input"
 	usage
 fi
@@ -34,17 +33,7 @@ REQUIRED_DEFCONFIG=`echo $1 | sed "s/vendor\///g"`
 
 FINAL_DEFCONFIG_BLEND=""
 
-case "$REQUIRED_DEFCONFIG" in
-	${PLATFORM_NAME}-qgki-debug_defconfig )
-		FINAL_DEFCONFIG_BLEND+=" $QCOM_DEBUG_FRAG"
-		;&	# Intentional fallthrough
-	${PLATFORM_NAME}-qgki_defconfig )
-		FINAL_DEFCONFIG_BLEND+=" $QCOM_QGKI_FRAG"
-		;;
-	${PLATFORM_NAME}-gki_defconfig )
-		FINAL_DEFCONFIG_BLEND+=" $QCOM_GKI_FRAG "
-		;&
-esac
+FINAL_DEFCONFIG_BLEND+=" $DEVICE_FRAG"
 
 FINAL_DEFCONFIG_BLEND+=${BASE_DEFCONFIG}
 
@@ -62,13 +51,7 @@ mv .config .config_base
 
 # Strip off the complete file paths and retail only the values beginning with vendor/
 MENUCONFIG_BLEND=""
-for config_file in $FINAL_DEFCONFIG_BLEND; do
-	if [[ $config_file == *"gki_defconfig" ]]; then
-		MENUCONFIG_BLEND+=" "`basename $config_file`" "
-	else
-		MENUCONFIG_BLEND+=" vendor/"`basename $config_file`" "
-	fi
-done
+MENUCONFIG_BLEND+=" vendor/"`basename $config_file`" "
 
 # Start the menuconfig
 make ${MENUCONFIG_BLEND} menuconfig
