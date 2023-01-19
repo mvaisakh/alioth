@@ -1483,54 +1483,6 @@ static bool hdd_is_mcast_replay(struct sk_buff *skb)
 	return false;
 }
 
-/**
- * hdd_is_arp_local() - check if local or non local arp
- * @skb: pointer to sk_buff
- *
- * Return: true if local arp or false otherwise.
- */
-static bool hdd_is_arp_local(struct sk_buff *skb)
-{
-	struct arphdr *arp;
-	struct in_ifaddr **ifap = NULL;
-	struct in_ifaddr *ifa = NULL;
-	struct in_device *in_dev;
-	unsigned char *arp_ptr;
-	__be32 tip;
-
-	arp = (struct arphdr *)skb->data;
-	if (arp->ar_op == htons(ARPOP_REQUEST)) {
-		/* if fail to acquire rtnl lock, assume it's local arp */
-		if (!rtnl_trylock())
-			return true;
-
-		in_dev = __in_dev_get_rtnl(skb->dev);
-		if (in_dev) {
-			for (ifap = &in_dev->ifa_list; (ifa = *ifap) != NULL;
-				ifap = &ifa->ifa_next) {
-				if (!strcmp(skb->dev->name, ifa->ifa_label))
-					break;
-			}
-		}
-
-		if (ifa && ifa->ifa_local) {
-			arp_ptr = (unsigned char *)(arp + 1);
-			arp_ptr += (skb->dev->addr_len + 4 +
-					skb->dev->addr_len);
-			memcpy(&tip, arp_ptr, 4);
-			hdd_debug("ARP packet: local IP: %x dest IP: %x",
-				ifa->ifa_local, tip);
-			if (ifa->ifa_local == tip) {
-				rtnl_unlock();
-				return true;
-			}
-		}
-		rtnl_unlock();
-	}
-
-	return false;
-}
-
 #ifdef RECEIVE_OFFLOAD
 /**
  * hdd_resolve_rx_ol_mode() - Resolve Rx offload method, LRO or GRO
