@@ -68,3 +68,6 @@ mv defconfig $CONFIGS_DIR/$REQUIRED_DEFCONFIG
 
 # Cleanup the kernel source
 make mrproper
+
+# Obtain removed the touchscreen fw files
+git checkout drivers/input/touchscreen/focaltech_*/include/*/*.i
