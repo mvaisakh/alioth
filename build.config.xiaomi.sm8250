@@ -31,3 +31,6 @@ function generate_defconfig() {
 
 DEFCONFIG=vendor/${DEVICE_NAME}_defconfig
 append_cmd PRE_DEFCONFIG_CMDS 'generate_defconfig'
+
+# Inherit performance config
+. ${KERNEL_DIR}/build.config.performance
