@@ -1,3 +1,4 @@
+BRANCH=android-4.19-stable
 KMI_GENERATION=2
 
 DEPMOD=depmod
