@@ -1,6 +1,6 @@
 KERNEL_DIR=kernel/msm-4.19
 
-POST_DEFCONFIG_CMDS="check_defconfig && update_perf_config"
+append_cmd POST_DEFCONFIG_CMDS "update_perf_config"
 function update_perf_config() {
 
   # Disable debug options
