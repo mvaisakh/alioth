@@ -12,11 +12,10 @@ STOP_SHIP_TRACEPRINTK=1
 IN_KERNEL_MODULES=1
 DO_NOT_STRIP_MODULES=1
 
-POST_DEFCONFIG_CMDS="check_defconfig && update_gcc_config"
+POST_DEFCONFIG_CMDS+="check_defconfig && update_gcc_config"
 function update_gcc_config() {
   # Disable clang-specific options
   ${KERNEL_DIR}/scripts/config --file ${OUT_DIR}/.config \
-    -d LTO \
     -d LTO_CLANG \
     -d CFI \
     -d CFI_PERMISSIVE \
@@ -26,3 +25,11 @@ function update_gcc_config() {
   (cd ${OUT_DIR} && \
     make O=${OUT_DIR} $archsubarch CROSS_COMPILE=${CROSS_COMPILE} olddefconfig)
 }
+
+case ${GCC_LTO} in
+  1)
+    . ${KERNEL_DIR}/build.config.common.gcc.lto
+    ;;
+  *)
+    ;;
+esac
