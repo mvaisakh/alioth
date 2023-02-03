@@ -28,6 +28,8 @@ endif
 CFLAGS_string.o := $(call cc-option, -fno-stack-protector)
 endif
 
+CFLAGS_string.o += $(DISABLE_LTO)
+
 lib-y := ctype.o string.o vsprintf.o cmdline.o \
 	 rbtree.o radix-tree.o timerqueue.o\
 	 idr.o int_sqrt.o extable.o \
