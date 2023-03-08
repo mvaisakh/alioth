@@ -5,6 +5,20 @@ on:
   push:
 
 jobs:
+  release:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Release Tag
+      id: release_tag
+      run: echo "TAG_NAME=eva-$(date -u +%d%m%Y%I%M)" >> $GITHUB_ENV
+    - name: Create Release
+      run: gh release create ${{ env.TAG_NAME }} --generate-notes
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build-alioth:
 
     runs-on: ubuntu-latest
