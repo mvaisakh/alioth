@@ -1,0 +1,20 @@
+
+name: Kernel Build CI
+
+on:
+  push:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      run: sudo apt update -y && sudo apt install -y repo elfutils
+    - name: Repo sync
+      run: |
+        repo init -u https://github.com/mvaisakh/android_kernel_manifest -b eva-xiaomi-4.19 --depth=1
+        repo sync --no-tags --no-clone-bundle -j$(nproc --all)
+    - name: Build alioth
+      run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.alioth COMPILER=gcc BUILD_KERNEL=1 build/build.sh
