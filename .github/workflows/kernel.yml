@@ -5,7 +5,7 @@ on:
   push:
 
 jobs:
-  build:
+  build-alioth:
 
     runs-on: ubuntu-latest
 
@@ -18,3 +18,157 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build alioth
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.alioth COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+
+  build-apollo:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      run: sudo apt update -y && sudo apt install -y repo elfutils
+    - name: Repo sync
+      run: |
+        repo init -u https://github.com/mvaisakh/android_kernel_manifest -b eva-xiaomi-4.19 --depth=1
+        repo sync --no-tags --no-clone-bundle -j$(nproc --all)
+    - name: Build apollo
+      run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.apollo COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+
+  build-cas:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      run: sudo apt update -y && sudo apt install -y repo elfutils
+    - name: Repo sync
+      run: |
+        repo init -u https://github.com/mvaisakh/android_kernel_manifest -b eva-xiaomi-4.19 --depth=1
+        repo sync --no-tags --no-clone-bundle -j$(nproc --all)
+    - name: Build cas
+      run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.cas COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+
+  build-cmi:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      run: sudo apt update -y && sudo apt install -y repo elfutils
+    - name: Repo sync
+      run: |
+        repo init -u https://github.com/mvaisakh/android_kernel_manifest -b eva-xiaomi-4.19 --depth=1
+        repo sync --no-tags --no-clone-bundle -j$(nproc --all)
+    - name: Build cmi
+      run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.cmi COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+
+  build-dagu:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      run: sudo apt update -y && sudo apt install -y repo elfutils
+    - name: Repo sync
+      run: |
+        repo init -u https://github.com/mvaisakh/android_kernel_manifest -b eva-xiaomi-4.19 --depth=1
+        repo sync --no-tags --no-clone-bundle -j$(nproc --all)
+    - name: Build dagu
+      run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.dagu COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+
+  build-elish:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      run: sudo apt update -y && sudo apt install -y repo elfutils
+    - name: Repo sync
+      run: |
+        repo init -u https://github.com/mvaisakh/android_kernel_manifest -b eva-xiaomi-4.19 --depth=1
+        repo sync --no-tags --no-clone-bundle -j$(nproc --all)
+    - name: Build elish
+      run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.elish COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+
+  build-enuma:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      run: sudo apt update -y && sudo apt install -y repo elfutils
+    - name: Repo sync
+      run: |
+        repo init -u https://github.com/mvaisakh/android_kernel_manifest -b eva-xiaomi-4.19 --depth=1
+        repo sync --no-tags --no-clone-bundle -j$(nproc --all)
+    - name: Build enuma
+      run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.enuma COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+
+  build-lmi:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      run: sudo apt update -y && sudo apt install -y repo elfutils
+    - name: Repo sync
+      run: |
+        repo init -u https://github.com/mvaisakh/android_kernel_manifest -b eva-xiaomi-4.19 --depth=1
+        repo sync --no-tags --no-clone-bundle -j$(nproc --all)
+    - name: Build lmi
+      run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.lmi COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+
+  build-munch:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      run: sudo apt update -y && sudo apt install -y repo elfutils
+    - name: Repo sync
+      run: |
+        repo init -u https://github.com/mvaisakh/android_kernel_manifest -b eva-xiaomi-4.19 --depth=1
+        repo sync --no-tags --no-clone-bundle -j$(nproc --all)
+    - name: Build munch
+      run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.munch COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+
+  build-psyche:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      run: sudo apt update -y && sudo apt install -y repo elfutils
+    - name: Repo sync
+      run: |
+        repo init -u https://github.com/mvaisakh/android_kernel_manifest -b eva-xiaomi-4.19 --depth=1
+        repo sync --no-tags --no-clone-bundle -j$(nproc --all)
+    - name: Build psyche
+      run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.psyche COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+
+  build-thyme:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      run: sudo apt update -y && sudo apt install -y repo elfutils
+    - name: Repo sync
+      run: |
+        repo init -u https://github.com/mvaisakh/android_kernel_manifest -b eva-xiaomi-4.19 --depth=1
+        repo sync --no-tags --no-clone-bundle -j$(nproc --all)
+    - name: Build thyme
+      run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.thyme COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+
+  build-umi:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup repo
+      run: sudo apt update -y && sudo apt install -y repo elfutils
+    - name: Repo sync
+      run: |
+        repo init -u https://github.com/mvaisakh/android_kernel_manifest -b eva-xiaomi-4.19 --depth=1
+        repo sync --no-tags --no-clone-bundle -j$(nproc --all)
+    - name: Build umi
+      run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.umi COMPILER=gcc BUILD_KERNEL=1 build/build.sh
