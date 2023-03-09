@@ -5,20 +5,6 @@ on:
   push:
 
 jobs:
-  release:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Release Tag
-      id: release_tag
-      run: echo "TAG_NAME=eva-$(date -u +%d%m%Y%I%M)" >> $GITHUB_ENV
-    - name: Create Release
-      run: gh release create ${{ env.TAG_NAME }} --generate-notes
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   build-alioth:
 
     runs-on: ubuntu-latest
@@ -32,6 +18,17 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build alioth
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.alioth COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+    - name: Create zip
+      run: |
+        cp out/android-4.19-stable/dist/Image ak3/
+        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cp out/android-4.19-stable/dist/dtbo.img ak3/
+        cd ak3/ && zip -r9 eva-alioth-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
+        cd ../
+    - uses: actions/upload-artifact@main
+      with:
+       name: release-zip
+       path: ak3/*.zip
 
   build-apollo:
 
@@ -46,6 +43,17 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build apollo
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.apollo COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+    - name: Create zip
+      run: |
+        cp out/android-4.19-stable/dist/Image ak3/
+        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cp out/android-4.19-stable/dist/dtbo.img ak3/
+        cd ak3/ && zip -r9 eva-apollo-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
+        cd ../
+    - uses: actions/upload-artifact@main
+      with:
+       name: release-zip
+       path: ak3/*.zip
 
   build-cas:
 
@@ -60,6 +68,17 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build cas
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.cas COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+    - name: Create zip
+      run: |
+        cp out/android-4.19-stable/dist/Image ak3/
+        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cp out/android-4.19-stable/dist/dtbo.img ak3/
+        cd ak3/ && zip -r9 eva-cas-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
+        cd ../
+    - uses: actions/upload-artifact@main
+      with:
+       name: release-zip
+       path: ak3/*.zip
 
   build-cmi:
 
@@ -74,6 +93,17 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build cmi
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.cmi COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+    - name: Create zip
+      run: |
+        cp out/android-4.19-stable/dist/Image ak3/
+        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cp out/android-4.19-stable/dist/dtbo.img ak3/
+        cd ak3/ && zip -r9 eva-cmi-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
+        cd ../
+    - uses: actions/upload-artifact@main
+      with:
+       name: release-zip
+       path: ak3/*.zip
 
   build-dagu:
 
@@ -88,6 +118,17 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build dagu
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.dagu COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+    - name: Create zip
+      run: |
+        cp out/android-4.19-stable/dist/Image ak3/
+        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cp out/android-4.19-stable/dist/dtbo.img ak3/
+        cd ak3/ && zip -r9 eva-dagu-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
+        cd ../
+    - uses: actions/upload-artifact@main
+      with:
+       name: release-zip
+       path: ak3/*.zip
 
   build-elish:
 
@@ -102,6 +143,17 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build elish
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.elish COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+    - name: Create zip
+      run: |
+        cp out/android-4.19-stable/dist/Image ak3/
+        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cp out/android-4.19-stable/dist/dtbo.img ak3/
+        cd ak3/ && zip -r9 eva-elish-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
+        cd ../
+    - uses: actions/upload-artifact@main
+      with:
+       name: release-zip
+       path: ak3/*.zip
 
   build-enuma:
 
@@ -116,6 +168,17 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build enuma
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.enuma COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+    - name: Create zip
+      run: |
+        cp out/android-4.19-stable/dist/Image ak3/
+        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cp out/android-4.19-stable/dist/dtbo.img ak3/
+        cd ak3/ && zip -r9 eva-enuma-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
+        cd ../
+    - uses: actions/upload-artifact@main
+      with:
+       name: release-zip
+       path: ak3/*.zip
 
   build-lmi:
 
@@ -130,6 +193,17 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build lmi
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.lmi COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+    - name: Create zip
+      run: |
+        cp out/android-4.19-stable/dist/Image ak3/
+        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cp out/android-4.19-stable/dist/dtbo.img ak3/
+        cd ak3/ && zip -r9 eva-lmi-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
+        cd ../
+    - uses: actions/upload-artifact@main
+      with:
+       name: release-zip
+       path: ak3/*.zip
 
   build-munch:
 
@@ -144,6 +218,17 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build munch
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.munch COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+    - name: Create zip
+      run: |
+        cp out/android-4.19-stable/dist/Image ak3/
+        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cp out/android-4.19-stable/dist/dtbo.img ak3/
+        cd ak3/ && zip -r9 eva-munch-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
+        cd ../
+    - uses: actions/upload-artifact@main
+      with:
+       name: release-zip
+       path: ak3/*.zip
 
   build-psyche:
 
@@ -158,6 +243,17 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build psyche
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.psyche COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+    - name: Create zip
+      run: |
+        cp out/android-4.19-stable/dist/Image ak3/
+        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cp out/android-4.19-stable/dist/dtbo.img ak3/
+        cd ak3/ && zip -r9 eva-psyche-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
+        cd ../
+    - uses: actions/upload-artifact@main
+      with:
+       name: release-zip
+       path: ak3/*.zip
 
   build-thyme:
 
@@ -172,6 +268,17 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build thyme
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.thyme COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+    - name: Create zip
+      run: |
+        cp out/android-4.19-stable/dist/Image ak3/
+        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cp out/android-4.19-stable/dist/dtbo.img ak3/
+        cd ak3/ && zip -r9 eva-thyme-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
+        cd ../
+    - uses: actions/upload-artifact@main
+      with:
+       name: release-zip
+       path: ak3/*.zip
 
   build-umi:
 
@@ -186,3 +293,33 @@ jobs:
         repo sync --no-tags --no-clone-bundle -j$(nproc --all)
     - name: Build umi
       run: BUILD_CONFIG=kernel/msm-4.19/build.config.xiaomi.umi COMPILER=gcc BUILD_KERNEL=1 build/build.sh
+    - name: Create zip
+      run: |
+        cp out/android-4.19-stable/dist/Image ak3/
+        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cp out/android-4.19-stable/dist/dtbo.img ak3/
+        cd ak3/ && zip -r9 eva-umi-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
+        cd ../
+    - uses: actions/upload-artifact@main
+      with:
+       name: release-zip
+       path: ak3/*.zip
+
+  publish-release:
+    needs: [build-alioth,build-apollo,build-cas,build-cmi,build-dagu,build-elish,build-enuma,build-lmi,build-munch,build-psyche,build-thyme,build-umi]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Restoring artifacts
+      uses: actions/download-artifact@main
+      with:
+        name: release-zip
+        path: ${{ github.workspace }}
+    - name: Release Tag
+      id: release_tag
+      run: echo "TAG_NAME=$(date -u +%d%m%Y%I%M)" >> $GITHUB_ENV
+    - name: Create Release
+      run: gh release create ${{ env.TAG_NAME }} --generate-notes -p *.zip
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
