@@ -21,7 +21,7 @@ jobs:
     - name: Create zip
       run: |
         cp out/android-4.19-stable/dist/Image ak3/
-        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cat out/android-4.19-stable/dist/*.dtb > ak3/dtb
         cp out/android-4.19-stable/dist/dtbo.img ak3/
         cd ak3/ && zip -r9 eva-alioth-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
         cd ../
@@ -46,7 +46,7 @@ jobs:
     - name: Create zip
       run: |
         cp out/android-4.19-stable/dist/Image ak3/
-        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cat out/android-4.19-stable/dist/*.dtb > ak3/dtb
         cp out/android-4.19-stable/dist/dtbo.img ak3/
         cd ak3/ && zip -r9 eva-apollo-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
         cd ../
@@ -71,7 +71,7 @@ jobs:
     - name: Create zip
       run: |
         cp out/android-4.19-stable/dist/Image ak3/
-        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cat out/android-4.19-stable/dist/*.dtb > ak3/dtb
         cp out/android-4.19-stable/dist/dtbo.img ak3/
         cd ak3/ && zip -r9 eva-cas-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
         cd ../
@@ -96,7 +96,7 @@ jobs:
     - name: Create zip
       run: |
         cp out/android-4.19-stable/dist/Image ak3/
-        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cat out/android-4.19-stable/dist/*.dtb > ak3/dtb
         cp out/android-4.19-stable/dist/dtbo.img ak3/
         cd ak3/ && zip -r9 eva-cmi-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
         cd ../
@@ -121,7 +121,7 @@ jobs:
     - name: Create zip
       run: |
         cp out/android-4.19-stable/dist/Image ak3/
-        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cat out/android-4.19-stable/dist/*.dtb > ak3/dtb
         cp out/android-4.19-stable/dist/dtbo.img ak3/
         cd ak3/ && zip -r9 eva-dagu-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
         cd ../
@@ -146,7 +146,7 @@ jobs:
     - name: Create zip
       run: |
         cp out/android-4.19-stable/dist/Image ak3/
-        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cat out/android-4.19-stable/dist/*.dtb > ak3/dtb
         cp out/android-4.19-stable/dist/dtbo.img ak3/
         cd ak3/ && zip -r9 eva-elish-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
         cd ../
@@ -171,7 +171,7 @@ jobs:
     - name: Create zip
       run: |
         cp out/android-4.19-stable/dist/Image ak3/
-        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cat out/android-4.19-stable/dist/*.dtb > ak3/dtb
         cp out/android-4.19-stable/dist/dtbo.img ak3/
         cd ak3/ && zip -r9 eva-enuma-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
         cd ../
@@ -196,7 +196,7 @@ jobs:
     - name: Create zip
       run: |
         cp out/android-4.19-stable/dist/Image ak3/
-        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cat out/android-4.19-stable/dist/*.dtb > ak3/dtb
         cp out/android-4.19-stable/dist/dtbo.img ak3/
         cd ak3/ && zip -r9 eva-lmi-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
         cd ../
@@ -221,7 +221,7 @@ jobs:
     - name: Create zip
       run: |
         cp out/android-4.19-stable/dist/Image ak3/
-        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cat out/android-4.19-stable/dist/*.dtb > ak3/dtb
         cp out/android-4.19-stable/dist/dtbo.img ak3/
         cd ak3/ && zip -r9 eva-munch-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
         cd ../
@@ -246,7 +246,7 @@ jobs:
     - name: Create zip
       run: |
         cp out/android-4.19-stable/dist/Image ak3/
-        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cat out/android-4.19-stable/dist/*.dtb > ak3/dtb
         cp out/android-4.19-stable/dist/dtbo.img ak3/
         cd ak3/ && zip -r9 eva-psyche-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
         cd ../
@@ -271,7 +271,7 @@ jobs:
     - name: Create zip
       run: |
         cp out/android-4.19-stable/dist/Image ak3/
-        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cat out/android-4.19-stable/dist/*.dtb > ak3/dtb
         cp out/android-4.19-stable/dist/dtbo.img ak3/
         cd ak3/ && zip -r9 eva-thyme-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
         cd ../
@@ -296,7 +296,7 @@ jobs:
     - name: Create zip
       run: |
         cp out/android-4.19-stable/dist/Image ak3/
-        cp out/android-4.19-stable/dist/kona.dtb ak3/dtb
+        cat out/android-4.19-stable/dist/*.dtb > ak3/dtb
         cp out/android-4.19-stable/dist/dtbo.img ak3/
         cd ak3/ && zip -r9 eva-umi-$(/bin/date -u '+%d%m%Y%I%M').zip * -x .git README.md ./*/placeholder
         cd ../
