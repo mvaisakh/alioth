@@ -4,7 +4,19 @@ name: Kernel Build CI
 on:
   push:
 
+env:
+  BOT_MSG_URL: ${{ secrets.TG_BOT_MSG_URL }}
+  CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
+  bot-notify-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Send message
+      run: curl -s -X POST ${{ env.BOT_MSG_URL }} -d chat_id=${{ env.CHAT_ID }} -d "disable_web_page_preview=true" -d "parse_mode=html" -d text="CI kernel build triggered for <b>Xiaomi SM8250 Devices</b>"
+
   build-alioth:
 
     runs-on: ubuntu-latest
@@ -345,5 +357,8 @@ jobs:
       run: echo "TAG_NAME=$(date -u +%d%m%Y%I%M)" >> $GITHUB_ENV
     - name: Create Release
       run: gh release create ${{ env.TAG_NAME }} --generate-notes -p *.zip
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Release notify
+      run: |
+        gh release list -L 1 > list
+        gh release view $(cat list | awk '{ print substr( $0, 1, length($0)-45 ) }') > release-text
+        curl -s -X POST ${{ env.BOT_MSG_URL }} -d chat_id=${{ env.CHAT_ID }} -d "disable_web_page_preview=true" -d "parse_mode=html" -d text="<b>New build for Xiaomi SM8250</b> %0A$(cat release-text | sed '1d;3d;4d;6d;7d;9d;10d;11d;12d;13d;14d;15d;16d;17d;18d;19d;20d;')"
