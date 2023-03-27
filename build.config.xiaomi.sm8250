@@ -34,3 +34,18 @@ append_cmd PRE_DEFCONFIG_CMDS 'generate_defconfig'
 
 # Inherit performance config
 . ${KERNEL_DIR}/build.config.performance
+
+# Disable SDCard FS
+function disable_sdcardfs() {
+  # Disable clang-specific options
+  ${KERNEL_DIR}/scripts/config --file ${OUT_DIR}/.config \
+    -d SDCARD_FS \
+    -e UNICODE
+
+  (cd ${OUT_DIR} && \
+    make O=${OUT_DIR} $archsubarch CROSS_COMPILE=${CROSS_COMPILE} olddefconfig)
+}
+
+if [ "${SDCARDFS}" == 0 ]; then
+	append_cmd POST_DEFCONFIG_CMDS "disable_sdcardfs"
+fi
