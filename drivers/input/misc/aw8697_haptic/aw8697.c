@@ -4965,7 +4965,6 @@ static ssize_t aw8697_effect_id_store(struct device *dev,
 
 	mutex_lock(&aw8697->lock);
 	aw8697->effect_id = val;
-	aw8697->play.vmax_mv = AW8697_MEDIUM_MAGNITUDE;
 	mutex_unlock(&aw8697->lock);
 	return count;
 }
