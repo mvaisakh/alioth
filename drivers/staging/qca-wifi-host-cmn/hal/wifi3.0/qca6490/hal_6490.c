@@ -235,7 +235,6 @@ void hal_rx_proc_phyrx_other_receive_info_tlv_6490(void *rx_tlv_hdr,
  */
 static void hal_rx_dump_msdu_start_tlv_6490(void *msdustart, uint8_t dbg_level)
 {
-#ifdef WLAN_DEBUG
 	struct rx_msdu_start *msdu_start = (struct rx_msdu_start *)msdustart;
 
 	__QDF_TRACE_RL(dbg_level, QDF_MODULE_ID_DP,
@@ -301,7 +300,6 @@ static void hal_rx_dump_msdu_start_tlv_6490(void *msdustart, uint8_t dbg_level)
 		       "rx_msdu_start tlv (2/2) - "
 		       "sw_phy_meta_data: %x ",
 		       msdu_start->sw_phy_meta_data);
-#endif
 }
 
 /**
@@ -315,7 +313,6 @@ static void hal_rx_dump_msdu_start_tlv_6490(void *msdustart, uint8_t dbg_level)
 static void hal_rx_dump_msdu_end_tlv_6490(void *msduend,
 					  uint8_t dbg_level)
 {
-#ifdef WLAN_DEBUG
 	struct rx_msdu_end *msdu_end = (struct rx_msdu_end *)msduend;
 
 	__QDF_TRACE_RL(dbg_level, QDF_MODULE_ID_DP,
@@ -427,7 +424,6 @@ static void hal_rx_dump_msdu_end_tlv_6490(void *msduend,
 		       msdu_end->fisa_timeout,
 		       msdu_end->cumulative_l4_checksum,
 		       msdu_end->cumulative_ip_length);
-#endif
 }
 
 /*
