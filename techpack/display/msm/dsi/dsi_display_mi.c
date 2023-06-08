@@ -70,6 +70,13 @@ int dsi_display_set_disp_param(struct drm_connector *connector,
 	return ret;
 }
 
+int dsi_display_get_disp_param(struct drm_connector *connector,
+			u32 *param_type)
+{
+	*param_type = (u32)atomic64_read(&g_param);
+	return 0;
+}
+
 int dsi_display_hbm_set_disp_param(struct drm_connector *connector,
 				u32 op_code)
 {

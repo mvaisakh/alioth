@@ -751,4 +751,10 @@ struct dsi_display *get_main_display(void);
 
 void dsi_display_set_fod_ui(struct dsi_display *display, bool status);
 
+int dsi_display_set_disp_param(struct drm_connector *connector,
+				u32 param_type);
+
+int dsi_display_get_disp_param(struct drm_connector *connector,
+				u32 *param_type);
+
 #endif /* _DSI_DISPLAY_H_ */

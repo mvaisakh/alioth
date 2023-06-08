@@ -8,7 +8,7 @@
 #include <linux/of_gpio.h>
 #include <linux/err.h>
 #include <drm/drm_notifier_mi.h>
-
+#include <drm/drm_modes.h>
 #include "msm_drv.h"
 #include "sde_connector.h"
 #include "msm_mmu.h"
@@ -5089,12 +5089,63 @@ static ssize_t sysfs_fod_ui_read(struct device *dev,
 	return snprintf(buf, PAGE_SIZE, "%d\n", status);
 }
 
+static ssize_t disp_param_store(struct device *dev,
+			   struct device_attribute *attr,
+			   const char *buf, size_t count)
+{
+	struct drm_connector *connector = dev_get_drvdata(dev);
+	char *input_copy, *input_dup = NULL;
+	u32 param;
+	int ret;
+	input_copy = kstrdup(buf, GFP_KERNEL);
+
+	if (!input_copy) {
+		DRM_ERROR("can not allocate memory\n");
+		ret = -ENOMEM;
+		goto exit;
+	}
+
+	input_dup = input_copy;
+
+	/* removes leading and trailing whitespace from input_copy */
+	input_copy = strim(input_copy);
+
+	ret = kstrtouint(input_copy, 16, &param);
+
+	if (ret) {
+		DRM_ERROR("input buffer conversion failed\n");
+		ret = -EAGAIN;
+		goto exit_free;
+	}
+
+	ret = dsi_display_set_disp_param(connector, param);
+
+exit_free:
+	kfree(input_dup);
+
+exit:
+	return ret ? ret : count;
+}
+
+static ssize_t disp_param_show(struct device *dev,
+			   struct device_attribute *attr,
+			   char *buf)
+{
+	struct drm_connector *connector = dev_get_drvdata(dev);
+	u32 param;
+	dsi_display_get_disp_param(connector, &param);
+	return snprintf(buf, PAGE_SIZE, "0x%08X\n", param);
+}
+
+static DEVICE_ATTR_RW(disp_param);
+
 static DEVICE_ATTR(fod_ui, 0444,
 			sysfs_fod_ui_read,
 			NULL);
 
 static struct attribute *display_fs_attrs[] = {
 	&dev_attr_fod_ui.attr,
+	&dev_attr_disp_param.attr,
 	NULL,
 };
 
