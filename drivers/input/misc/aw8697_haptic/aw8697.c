@@ -5523,7 +5523,7 @@ static ssize_t aw8697_gain_store(struct device *dev,
 
 	mutex_lock(&aw8697->lock);
 	aw8697->gain = val;
-	aw8697_haptic_set_gain(aw8697, aw8697->gain);
+	aw8697_haptics_set_gain(aw8697, aw8697->gain);
 	mutex_unlock(&aw8697->lock);
 	return count;
 }
